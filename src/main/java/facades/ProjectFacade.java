@@ -6,6 +6,7 @@
 package facades;
 
 import entities.Project;
+import entities.ProjectHours;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -41,7 +42,15 @@ public class ProjectFacade {
         return emf.createEntityManager();
     }
     
-    private List<String> getAllprojects(){
+    public int getInvoice(int id){
+        EntityManager em = emf.createEntityManager();
+        ProjectHours h = em.find(ProjectHours.class, id);
+        em.close();
+        int invoice = h.getHoursSpent() * 150; //150 kr pr time
+        return invoice;
+    }
+    
+    public List<String> getAllprojects(){
         EntityManager em = emf.createEntityManager();
         TypedQuery<Project> projectQuery = em.createQuery("SELECT p FROM project p", Project.class);
         List<Project> projectList = projectQuery.getResultList();
@@ -50,6 +59,17 @@ public class ProjectFacade {
             projectNames.add(project.getName());
         }
         return projectNames;
+    }
+    
+    public void createProject(String name, String description){
+        EntityManager em = emf.createEntityManager();
+        Project project = new Project();
+        project.setDescription(description);
+        project.setName(name);
+        em.getTransaction().begin();
+        em.persist(project);
+        em.getTransaction().commit();
+        em.close();
     }
     
     

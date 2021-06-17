@@ -38,6 +38,14 @@ public class Project implements Serializable {
         this.projecthours.add(projecthours);
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public List<User> getAssignedDevelopers() {
         return assignedDevelopers;
     }

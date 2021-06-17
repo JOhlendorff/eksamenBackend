@@ -26,6 +26,30 @@ public class ProjectHours implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int hoursSpent;
+
+    public int getHoursSpent() {
+        return hoursSpent;
+    }
+
+    public void setHoursSpent(int hoursSpent) {
+        this.hoursSpent = hoursSpent;
+    }
+
+    public String getUserStory() {
+        return userStory;
+    }
+
+    public void setUserStory(String userStory) {
+        this.userStory = userStory;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
     private String userStory;
     @ManyToOne
     private Project project;
